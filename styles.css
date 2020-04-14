@@ -1,11 +1,10 @@
 body {
-	margin: 0;
-	box-sizing: border-box;
 	background-color: black;
 	color: white;
+	font-size: 1.1em;
 }
 
-input {
+input, .input-field>label {
 	color: white!important;
 }
 
@@ -15,4 +14,8 @@ td:nth-child(2) {
 
 td:nth-child(3) {
 	color: #ff7d7d;
+}
+
+.intro {
+	color: #3dc5b9;
 }

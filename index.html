@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Description" content="Author: K.S. Dirkmal,
+		A simulation of a covid-19 impact estimator, calculating if the necessary 
+		facilities would be enough to manage presemt and future cases as well as
+		how the crisis will affect the economy ">
         <title>Covid 19 Impact Estimator</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link rel="stylesheet" href="styles.css">
@@ -13,53 +18,57 @@
 			Welcome to C19E
 		</h4>
 
-		<p class="teal-text">
+		<p class="intro">
 			In light of the recent crisis plaguing the globe
 			Andela is challenging developers across Africa to build systems which could 
 			assist in tracking and monitoring the progress of the novel Coronavirus in hopes 
 			that these systems can gradually be improved upon especially to aid researchers in 
 			finding a lasting solution to the infection. <br>
-			This is a <b class="red-text">SIMULATION</b> of a Covid-19 Estimator, you fill in the below information
-			and a projection of impact is given.
+			This is a <b class="red-text">SIMULATION</b> of a Covid-19 Estimator, fill the form
+			to get a projection of impact.
 		</p>
 
         <div class="row">
             <form id="c19e-form" class="col s12">
               	<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<input id="population" type="number" class="validate" data-population required autofocus>
 						<label for="pop">Population</label>
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<input id="tte" type="number" class="validate" data-time-to-elapse required>
 						<label for="tte">Time to Elapse</label>
 					</div>
 				</div>
               
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 					<input id="rc" type="number" class="validate" data-reported-cases required>
 					<label for="rc">Reported Cases</label>
 					</div>
 				
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 					<input id="thb" type="number" class="validate" data-total-hospital-beds required>
 					<label for="thb">Total Hospital Beds</label>
 					</div>
 				</div>
-              
-				<div class="input-field col s6">
-					<select required data-period-type>
-						<option value="days">Days</option>
-						<option value="weeks">Weeks</option>
-						<option value="months">Months</option>
-					</select>
-					<label>Period Type</label>
+			  
+				<div class="row">
+					<div class="input-field col s12 m6">
+						<select id="spt" required data-period-type>
+							<option value="days">Days</option>
+							<option value="weeks">Weeks</option>
+							<option value="months">Months</option>
+						</select>
+						<label for="spt">Period Type</label>
+					</div>
 				</div>
 				  
-				<button type="submit" class="btn btn-block" data-go-estimate>
-					ESTIMATE
-				</button>
+				<div class="row">
+					<button type="submit" name="estimate" class="col s12 btn btn-large" data-go-estimate>
+						ESTIMATE
+					</button>
+				</div>
 			</form>
 			
 			<div class="hide" id="results">
