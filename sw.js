@@ -3,7 +3,7 @@ var urls_to_cache = [
 	'./',
 	'./index.html',
 	'./styles.css',
-	'./estimator.js',
+	'./estimator.min.js',
 	'./assets/favicon-128.png',
 	'./manifest.json'
 ];
