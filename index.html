@@ -29,7 +29,9 @@
         <title>Covid 19 Impact Estimator</title>
 		<link rel="stylesheet" href="styles.css">
 		<link rel="shortcut icon" type="image/png" href="assets/favicon-128.png"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"></noscript>
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
     </head>
 
     <body class="container">
@@ -161,7 +163,7 @@
 	<script>
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', function() {
-				navigator.serviceWorker.register('/sw.js').then(function(registration) {
+				navigator.serviceWorker.register('./sw.js').then(function(registration) {
 				// Registration was successful
 				console.log('ServiceWorker registration successful with scope: ', registration.scope);
 				}, function(err) {
@@ -171,7 +173,7 @@
 			});
 		}
 	</script>
-	<script type="text/javascript" src="estimator.js"></script>
+	<script async type="text/javascript" src="estimator.js"></script>
     <script>
         function fillWithText(id, text) {
 			document.getElementById(id).innerText = text;
@@ -225,5 +227,5 @@
 			document.getElementById('results').classList.remove("hide");
 		});
 	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" async></script>
 </html>

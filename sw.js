@@ -1,11 +1,11 @@
 var CACHE_NAME = 'c19e-sw-v1';
 var urls_to_cache = [
-	'/',
-	'/index.html',
-	'/styles.css',
-	'/estimator.js',
-	'/assets/favicon-128.png',
-	'/manifest.json'
+	'./',
+	'./index.html',
+	'./styles.css',
+	'./estimator.js',
+	'./assets/favicon-128.png',
+	'./manifest.json'
 ];
 self.addEventListener('install', (event) => {
 	event.waitUntil(
