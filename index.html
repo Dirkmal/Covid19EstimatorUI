@@ -7,10 +7,29 @@
 		A simulation of a covid-19 impact estimator, calculating if the necessary 
 		facilities would be enough to manage presemt and future cases as well as
 		how the crisis will affect the economy ">
+		<meta name="theme-color" content="#3dc5b9"/>
+
+		<link rel="manifest" href="manifest.json">
+
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/favitomatic/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/favitomatic/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/favitomatic/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/favitomatic/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/favitomatic/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/favitomatic/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/favitomatic/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/favitomatic/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="assets/favicon-196x196.png" sizes="196x196" />
+		<link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="assets/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="assets/favicon-16x16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="assets/favicon-128.png" sizes="128x128" />
+
+
         <title>Covid 19 Impact Estimator</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link rel="stylesheet" href="styles.css">
-		<link rel="shortcut icon" type="image/png" href="biohazard.png"/>
+		<link rel="shortcut icon" type="image/png" href="assets/favicon-128.png"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
 
     <body class="container">
@@ -33,7 +52,7 @@
               	<div class="row">
 					<div class="input-field col s12 m6">
 						<input id="population" type="number" class="validate" data-population required autofocus>
-						<label for="pop">Population</label>
+						<label for="population">Population</label>
 					</div>
 					<div class="input-field col s12 m6">
 						<input id="tte" type="number" class="validate" data-time-to-elapse required>
@@ -54,13 +73,13 @@
 				</div>
 			  
 				<div class="row">
-					<div class="input-field col s12 m6">
-						<select id="spt" required data-period-type>
+					<div class=" col s12 m6">
+						<label for="spt">Period Type</label>
+						<select class="browser-default" id="spt" required data-period-type>
 							<option value="days">Days</option>
 							<option value="weeks">Weeks</option>
 							<option value="months">Months</option>
 						</select>
-						<label for="spt">Period Type</label>
 					</div>
 				</div>
 				  
@@ -139,16 +158,22 @@
 		</div>                        
 	</body>
 	
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script type="text/javascript" src="estimator.js">
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', function() {
+				navigator.serviceWorker.register('/sw.js').then(function(registration) {
+				// Registration was successful
+				console.log('ServiceWorker registration successful with scope: ', registration.scope);
+				}, function(err) {
+				// registration failed :(
+				console.log('ServiceWorker registration failed: ', err);
+				});
+			});
+		}
 	</script>
+	<script type="text/javascript" src="estimator.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems);
-		});
-
-		function fillWithText(id, text) {
+        function fillWithText(id, text) {
 			document.getElementById(id).innerText = text;
 		}
 
@@ -200,4 +225,5 @@
 			document.getElementById('results').classList.remove("hide");
 		});
 	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </html>

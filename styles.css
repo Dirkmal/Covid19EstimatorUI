@@ -19,3 +19,7 @@ td:nth-child(3) {
 .intro {
 	color: #3dc5b9;
 }
+
+.btn {
+	color: black!important;
+}
