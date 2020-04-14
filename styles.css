@@ -1,0 +1,18 @@
+body {
+	margin: 0;
+	box-sizing: border-box;
+	background-color: black;
+	color: white;
+}
+
+input {
+	color: white!important;
+}
+
+td:nth-child(2) {
+	color: #ffbe00;
+}
+
+td:nth-child(3) {
+	color: #ff7d7d;
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Covid 19 Impact Estimator</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="shortcut icon" type="image/png" href="biohazard.png"/>
+    </head>
+
+    <body class="container">
+		<h4 class="center">
+			Welcome to C19E
+		</h4>
+
+		<p class="teal-text">
+			In light of the recent crisis plaguing the globe
+			Andela is challenging developers across Africa to build systems which could 
+			assist in tracking and monitoring the progress of the novel Coronavirus in hopes 
+			that these systems can gradually be improved upon especially to aid researchers in 
+			finding a lasting solution to the infection. <br>
+			This is a <b class="red-text">SIMULATION</b> of a Covid-19 Estimator, you fill in the below information
+			and a projection of impact is given.
+		</p>
+
+        <div class="row">
+            <form id="c19e-form" class="col s12">
+              	<div class="row">
+					<div class="input-field col s6">
+						<input id="population" type="number" class="validate" data-population required autofocus>
+						<label for="pop">Population</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="tte" type="number" class="validate" data-time-to-elapse required>
+						<label for="tte">Time to Elapse</label>
+					</div>
+				</div>
+              
+				<div class="row">
+					<div class="input-field col s6">
+					<input id="rc" type="number" class="validate" data-reported-cases required>
+					<label for="rc">Reported Cases</label>
+					</div>
+				
+					<div class="input-field col s6">
+					<input id="thb" type="number" class="validate" data-total-hospital-beds required>
+					<label for="thb">Total Hospital Beds</label>
+					</div>
+				</div>
+              
+				<div class="input-field col s6">
+					<select required data-period-type>
+						<option value="days">Days</option>
+						<option value="weeks">Weeks</option>
+						<option value="months">Months</option>
+					</select>
+					<label>Period Type</label>
+				</div>
+				  
+				<button type="submit" class="btn btn-block" data-go-estimate>
+					ESTIMATE
+				</button>
+			</form>
+			
+			<div class="hide" id="results">
+				<h5 class="center">
+					Results
+				</h5>
+			
+				<table class="col s12 striped">
+					<thead>
+						<th>Estimations</th>
+						<th>Impact</th>
+						<th>Severe Impact</th>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>
+								Currently Infected
+							</td>
+							<td id="ci"></td>
+							<td id="s_ci"></td>
+						</tr>
+						<tr>
+							<td>
+								Projected New Infections
+							</td>
+							<td id="ibrt"></td>
+							<td id="s_ibrt"></td>
+						</tr>
+						<tr>
+							<td>
+								Projected Severe Infections
+							</td>
+							<td id="new_severe_cases"></td>
+							<td id="s_new_severe_cases"></td>
+						</tr>
+						<tr>
+							<td>
+								Available hospital beds
+							</td>
+							<td id="avail_hb"></td>
+							<td id="s_avail_hb"></td>
+						</tr>
+						<tr>
+							<td>
+								Projected ICU cases
+							</td>
+							<td id="icu"></td>
+							<td id="s_icu"></td>
+						</tr>
+						<tr>
+							<td>
+								Projected Ventilator cases
+							</td>
+							<td id="vent"></td>
+							<td id="s_vent"></td>
+						</tr>
+						<tr>
+							<td>
+								Economic Impact (-$)
+							</td>
+							<td id="el"></td>
+							<td id="s_el"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>                        
+	</body>
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script type="text/javascript" src="estimator.js">
+	</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+		});
+
+		function fillWithText(id, text) {
+			document.getElementById(id).innerText = text;
+		}
+
+		document.getElementById('c19e-form').addEventListener("submit",function(e) {
+			e.preventDefault();
+
+			const pop = document.querySelector("[data-population]").value;
+			const tte = document.querySelector("[data-time-to-elapse]").value;
+			const rc = document.querySelector("[data-reported-cases]").value;
+			const thb = document.querySelector("[data-total-hospital-beds]").value;
+			const pt = document.querySelector("[data-period-type]").value;
+
+			data = {
+				population: pop,
+				totalHospitalBeds: thb,
+				timeToElapse: tte,
+				reportedCases: rc,
+				periodType: pt,
+				region: {
+					avgDailyIncomeInUSD: 1.5,
+					avgDailyIncomePopulation: 0.65
+				}
+			}
+			const res = covid19ImpactEstimator(data);
+			const i = res.impact;
+			const s = res.severeImpact;
+
+			fillWithText("ci", i.currentlyInfected);
+			fillWithText("s_ci", s.currentlyInfected);
+
+			fillWithText("ibrt", i.infectionsByRequestedTime);
+			fillWithText("s_ibrt", s.infectionsByRequestedTime);
+
+			fillWithText("new_severe_cases", i.severeCasesByRequestedTime);
+			fillWithText("s_new_severe_cases", s.severeCasesByRequestedTime);
+
+			fillWithText("avail_hb", i.hospitalBedsByRequestedTime);
+			fillWithText("s_avail_hb", s.hospitalBedsByRequestedTime);
+
+			fillWithText("icu", i.casesForICUByRequestedTime);
+			fillWithText("s_icu", s.casesForICUByRequestedTime);
+
+			fillWithText("vent", i.casesForVentilatorsByRequestedTime);
+			fillWithText("s_vent", s.casesForVentilatorsByRequestedTime);
+
+			fillWithText("el", i.dollarsInFlight);
+			fillWithText("s_el", s.dollarsInFlight);
+
+			document.getElementById('results').classList.remove("hide");
+		});
+	</script>
+</html>
